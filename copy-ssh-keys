@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+
+# copy-ssh-keys                             Bri Aug 2020
+#
+# Copy SSH keys and config between ejp hosts
+
+# parse options
+
+# get userid
+# get this host
+# determine other host
+# get .ssh directory
+# get timestamop file
+# get list of keys and config
+
+# if files newer than timestamp
+#  - rsync to other host
+
+# Suggest use of ssh-copy-id?
