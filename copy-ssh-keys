@@ -10,10 +10,14 @@
 # get this host
 # determine other host
 # get .ssh directory
-# get timestamop file
+# get .timestamop file
 # get list of keys and config
 
 # if files newer than timestamp
 #  - rsync to other host
 
 # Suggest use of ssh-copy-id?
+
+
+# find .ssh -type f -newer .ssh/.timestamp
+# rsync -av .ssh/ ejp-gateway02.ad.ucl.ac.uk:.ssh
