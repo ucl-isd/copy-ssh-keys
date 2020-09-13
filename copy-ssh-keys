@@ -4,7 +4,71 @@
 #
 # Copy SSH keys and config between ejp hosts
 
+use Getopt::Long;
+
 # parse options
+
+$check = '';
+$copy = '';
+$verbose = '';
+
+GetOptions ('verbose' => \$verbose, 'check' => \$check);
+
+$SSHDIR = "$ENV{'HOME'}/.ssh";
+
+if (! -e $SSHDIR) {
+    if ($verbose) {
+        print "$0: $SSHDIR does not exist";
+    }
+    exit;
+}
+
+$HOST = `hostname`;
+if ($HOST eq "ejp-gateway01.ad.ucl.ac.uk") {
+    $TARG = 'ejp-gateway02.ad.ucl.ac.uk';
+} elsif ($HOST eq "ejp-gateway02.ad.ucl.ac.uk") {
+    $TARG = 'ejp-gateway01.ad.ucl.ac.uk';
+} else {
+    print "$0: Source hostname not recognised";
+    exit 1;
+}
+
+$STAMP = "$SSHDIR/.timestamp";
+$FILES = `find $SSHDIR -type f ! -name .timestamp`;
+
+if (! $FILES) {
+    if ($verbose) {
+        print "$0: no files in $SSHDIR";
+    }
+    exit;
+}
+
+if (! -e $STAMP) {
+    if ($check || $verbose) {
+        print "$0: timestamp does not exist";
+    }
+    $NEWFILES = `find $SSHDIR -type f`;
+} else {
+    $NEWFILES = `find $SSHDIR -type f -newer $STAMP`;
+}
+
+if ($NEWFILES) {
+    if ($check || $verbose) {
+        print "$0: $SSHDIR has updated files";
+    }
+    if ($copy) {
+        if ($verbose) {
+            $r = `rsync -av $SSHDIR $TARG:.ssh && touch $STAMP`;
+        } else {
+            $r = `rsync -a $SSHDIR $TARG:.ssh && touch $STAMP`;
+        }
+        print $r;
+    }
+}
+
+
+
+
 
 # get userid
 # get this host
@@ -15,6 +79,7 @@
 
 # if files newer than timestamp
 #  - rsync to other host
+
 
 # Suggest use of ssh-copy-id?
 
