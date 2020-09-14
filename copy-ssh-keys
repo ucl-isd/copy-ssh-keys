@@ -6,17 +6,19 @@
 
 use Getopt::Long;
 
-# parse options
 
+# parse options
 $check = '';
 $copy = '';
 $verbose = '';
 
 GetOptions ('verbose' => \$verbose, 'check' => \$check, 'copy' => \$copy);
 
+# My script name
 $script = `basename $0`;
 chomp($script);
 
+# Check for user's ssh conmfig files
 $SSHDIR = "$ENV{'HOME'}/.ssh";
 
 if (! -e $SSHDIR) {
@@ -26,6 +28,7 @@ if (! -e $SSHDIR) {
     exit;
 }
 
+# Determine partner system
 $HOST = `hostname`;
 chomp($HOST);
 if ($HOST eq "ejp-gateway01.ad.ucl.ac.uk") {
@@ -37,9 +40,11 @@ if ($HOST eq "ejp-gateway01.ad.ucl.ac.uk") {
     exit 1;
 }
 
+# Look for config files
 $STAMP = "$SSHDIR/.timestamp";
 $FILES = `find $SSHDIR -type f ! -name .timestamp`;
 
+# Nothing found
 if (! $FILES) {
     if ($verbose) {
         print "$script: no files in $SSHDIR\n";
@@ -47,6 +52,7 @@ if (! $FILES) {
     exit;
 }
 
+# Check for timestamp and newer config files
 if (! -e $STAMP) {
     if ($check || $verbose) {
         print "$0: timestamp does not exist\n";
@@ -56,6 +62,7 @@ if (! -e $STAMP) {
     $NEWFILES = `find $SSHDIR -type f -newer $STAMP`;
 }
 
+# Copy the files!
 if ($NEWFILES) {
     if ($check || $verbose) {
         print "$script: $SSHDIR has updated files\n";
