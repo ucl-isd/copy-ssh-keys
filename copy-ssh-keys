@@ -55,7 +55,7 @@ if (! $FILES) {
 # Check for timestamp and newer config files
 if (! -e $STAMP) {
     if ($check || $verbose) {
-        print "$0: timestamp does not exist\n";
+        print "$script: timestamp does not exist\n";
     }
     $NEWFILES = `find $SSHDIR -type f`;
 } else {
