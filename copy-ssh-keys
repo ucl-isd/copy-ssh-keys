@@ -13,7 +13,7 @@ $check = '';
 $copy = '';
 $verbose = '';
 
-GetOptions ('help' => \$help 'verbose' => \$verbose, 'check' => \$check, 'copy' => \$copy);
+GetOptions ('help' => \$help, 'verbose' => \$verbose, 'check' => \$check, 'copy' => \$copy);
 
 # My script name
 $script = `basename $0`;
