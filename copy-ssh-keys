@@ -8,15 +8,29 @@ use Getopt::Long;
 
 
 # parse options
+$help = '';
 $check = '';
 $copy = '';
 $verbose = '';
 
-GetOptions ('verbose' => \$verbose, 'check' => \$check, 'copy' => \$copy);
+GetOptions ('help' => \$help 'verbose' => \$verbose, 'check' => \$check, 'copy' => \$copy);
 
 # My script name
 $script = `basename $0`;
 chomp($script);
+
+# Usage
+if ($help) {
+    print "$script:\n"
+    print "Utility to copy user SSH keys to partner system\n\n"
+    print "\t-help\tDisplay this help\n"
+    print "\t-check\tCompare timestamp of keys with last time copy performed\n"
+    print "\t-copy\tCopy keys to partner system using rsync\n"
+    print "\t-verbose\tShow more info about actions\n\n"
+    print "The rsync operation will use your SSH credentials if available.\n"
+    print "Otherwise you will be prompted as usial.\n"
+    exit 0;
+}
 
 # Check for user's ssh conmfig files
 $SSHDIR = "$ENV{'HOME'}/.ssh";
