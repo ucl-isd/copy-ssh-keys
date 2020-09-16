@@ -3,6 +3,8 @@
 # copy-ssh-keys                             Bri Aug 2020
 #
 # Copy SSH keys and config between ejp hosts
+#
+# https://git.automation.ucl.ac.uk/ccaabrw/copy-ssh-keys
 
 use Getopt::Long;
 
@@ -23,12 +25,12 @@ chomp($script);
 if ($help) {
     print "$script:\n";
     print "Utility to copy user SSH keys to partner system\n\n";
-    print "\t-help\tDisplay this help\n";
-    print "\t-check\tCompare timestamp of keys with last time copy performed\n";
-    print "\t-copy\tCopy keys to partner system using rsync\n";
-    print "\t-verbose\tShow more info about actions\n\n";
+    print "  -help       Display this text\n";
+    print "  -check      Compare timestamp of keys with last time copy performed\n";
+    print "  -copy       Copy keys to partner system using rsync\n";
+    print "  -verbose    Show more info about actions\n\n";
     print "The rsync operation will use your SSH credentials if available.\n";
-    print "Otherwise you will be prompted as usial.\n";
+    print "Otherwise you will be prompted as NORMAL.\n";
     exit 0;
 }
 
@@ -90,4 +92,3 @@ if ($NEWFILES) {
         print $r;
     }
 }
-
