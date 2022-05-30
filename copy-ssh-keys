@@ -4,7 +4,7 @@
 #
 # Copy SSH keys and config between ejp hosts
 #
-# https://git.automation.ucl.ac.uk/ccaabrw/copy-ssh-keys
+# https://github.com/ucl-isd/copy-ssh-keys
 
 use Getopt::Long;
 
